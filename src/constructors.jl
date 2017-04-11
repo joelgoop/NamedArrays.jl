@@ -47,6 +47,12 @@ function NamedArray{T,N,VT}(array::AbstractArray{T,N},
     NamedArray(array, dicts, tuple(dimnames...))
 end
 
+## constructor without an array, but with type, names and dimnames
+function NamedArray{T,N}(::Type{T}, names::NTuple{N,Vector}, dimnames::NTuple{N, Any}=defaultdimnames(N))
+    dims = map(length, names)
+    NamedArray(Array{T}(dims...), names, dimnames)
+end
+
 
 ## Type and dimensions
 """
